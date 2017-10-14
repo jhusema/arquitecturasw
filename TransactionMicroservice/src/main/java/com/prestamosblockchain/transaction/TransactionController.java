@@ -18,7 +18,7 @@ import com.prestamosblockchain.transactions.services.TransactionService;
 @RestController
 public class TransactionController implements IBondService, ITransactionService {
 	/**
-	 * Implementación del servicio de bonos.
+	 * Implementaciï¿½n del servicio de bonos.
 	 */
 	private IBondService bondService;
 	/**
@@ -27,7 +27,7 @@ public class TransactionController implements IBondService, ITransactionService 
 	private ITransactionService transactionService;
 
 	/**
-	 * Incializa los objetos sobre los cuales se delegará los procesos
+	 * Incializa los objetos sobre los cuales se delegarï¿½ los procesos
 	 */
 	public TransactionController() {
 		this.bondService = new BondService();
@@ -93,4 +93,5 @@ public class TransactionController implements IBondService, ITransactionService 
 	public BondDto borrowBond(@RequestBody BondDto bondDto) {
 		return this.bondService.borrowBond(bondDto);
 	}
+	//Pruebas Jean Paul Galeano
 }
