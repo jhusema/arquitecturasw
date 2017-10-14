@@ -35,7 +35,7 @@ public interface ITransactionService {
 	 * 
 	 * @return {@link TransactionDto}
 	 */
-	public List<TransactionDto> getCreatedTransaction();
+	public List<TransactionDto> getCreatedTransactions();
 
 	/**
 	 * Retorna las transacciones creadas por un usuario.

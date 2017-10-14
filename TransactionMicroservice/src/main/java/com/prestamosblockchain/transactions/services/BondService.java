@@ -5,6 +5,9 @@ package com.prestamosblockchain.transactions.services;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+
+import com.prestamosblockchain.transaction.repository.BondsRepository;
 import com.prestamosblockchain.transactions.dto.BondDto;
 
 /**
@@ -14,41 +17,41 @@ import com.prestamosblockchain.transactions.dto.BondDto;
  *
  */
 public class BondService implements IBondService {
+	private BondsRepository bondsRepository;
+
+	@Bean
+	public void setBondsRepository(BondsRepository bondsRepository) {
+		this.bondsRepository = bondsRepository;
+	}
 
 	@Override
 	public BondDto createBondDto(BondDto bondDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bondsRepository.save(bondDto);
 	}
 
 	@Override
 	public BondDto getCreatedBondById(int bondId) {
-		// TODO Auto-generated method stub
-		return null;
+		return (BondDto) this.bondsRepository.findById(bondId);
 	}
 
 	@Override
 	public List<BondDto> getCreatedBonds() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bondsRepository.findAll();
 	}
 
 	@Override
 	public List<BondDto> getBondsByLoanerId(String loanerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bondsRepository.findByMoneyLenderId(loanerId);
 	}
 
 	@Override
 	public List<BondDto> getBondsByborrowerId(String borrowerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bondsRepository.findByBorrowerId(borrowerId);
 	}
 
 	@Override
 	public BondDto borrowBond(BondDto bondDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bondsRepository.save(bondDto);
 	}
 
 }

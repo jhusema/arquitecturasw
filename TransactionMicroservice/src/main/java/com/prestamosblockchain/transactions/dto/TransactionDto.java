@@ -2,12 +2,17 @@ package com.prestamosblockchain.transactions.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Representa la información de una transacción
  * 
  * @author JM
  *
  */
+@Entity
 public class TransactionDto {
 
 	/**
@@ -33,6 +38,7 @@ public class TransactionDto {
 	/**
 	 * Hash de validación de la transacción.
 	 */
+	@JsonIgnore
 	private String hash;
 	/**
 	 * Identificador de la transacción previa.

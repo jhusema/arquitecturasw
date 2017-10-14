@@ -48,8 +48,8 @@ public class TransactionController implements IBondService, ITransactionService 
 
 	@RequestMapping(method = RequestMethod.GET, path = "/transations")
 	@Override
-	public List<TransactionDto> getCreatedTransaction() {
-		return this.transactionService.getCreatedTransaction();
+	public List<TransactionDto> getCreatedTransactions() {
+		return this.transactionService.getCreatedTransactions();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/transations/user/{userId}")
