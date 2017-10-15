@@ -1,4 +1,4 @@
-package com.prestamosblockchain.transactions.dto;
+package com.prestamosblockchain.transaction.dto;
 /**
  * Tipos de transaccioens
  * @author JM

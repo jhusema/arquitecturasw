@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.prestamosblockchain.transactions.dto.BondsStatus;
+import com.prestamosblockchain.transaction.dto.BondsStatus;
 
 /**
  * Clase que representa al información almacenada en los bonos.

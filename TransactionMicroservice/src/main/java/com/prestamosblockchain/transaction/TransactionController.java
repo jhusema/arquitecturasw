@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prestamosblockchain.transactions.services.BondService;
-import com.prestamosblockchain.transactions.services.IBondService;
-import com.prestamosblockchain.transactions.services.ITransactionService;
-import com.prestamosblockchain.transactions.services.TransactionService;
+import com.prestamosblockchain.transaction.services.BondService;
+import com.prestamosblockchain.transaction.services.IBondService;
+import com.prestamosblockchain.transaction.services.ITransactionService;
+import com.prestamosblockchain.transaction.services.TransactionService;
 
 @RestController
 public class TransactionController implements IBondService, ITransactionService {

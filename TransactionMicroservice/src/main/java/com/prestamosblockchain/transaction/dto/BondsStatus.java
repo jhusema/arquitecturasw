@@ -1,4 +1,4 @@
-package com.prestamosblockchain.transactions.dto;
+package com.prestamosblockchain.transaction.dto;
 
 /**
  * Enumaration con los estados posbibles para un bono en el sistema.

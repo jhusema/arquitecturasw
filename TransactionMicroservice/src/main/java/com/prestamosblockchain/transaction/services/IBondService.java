@@ -1,4 +1,4 @@
-package com.prestamosblockchain.transactions.services;
+package com.prestamosblockchain.transaction.services;
 
 import java.util.List;
 

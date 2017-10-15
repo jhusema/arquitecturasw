@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.prestamosblockchain.transactions.dto.BondsStatus;
-import com.prestamosblockchain.transactions.dto.TransactionTypes;
+import com.prestamosblockchain.transaction.dto.BondsStatus;
+import com.prestamosblockchain.transaction.dto.TransactionTypes;
 
 @EntityScan
 @EnableJpaRepositories

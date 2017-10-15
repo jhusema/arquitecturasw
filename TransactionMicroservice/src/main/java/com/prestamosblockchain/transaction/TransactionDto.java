@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.prestamosblockchain.transactions.dto.TransactionTypes;
+import com.prestamosblockchain.transaction.dto.TransactionTypes;
 
 /**
  * Representa la información de una transacción
