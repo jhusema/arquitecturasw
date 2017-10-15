@@ -2,7 +2,7 @@ package com.prestamosblockchain.transactions.services;
 
 import java.util.List;
 
-import com.prestamosblockchain.transactions.dto.BondDto;
+import com.prestamosblockchain.transaction.BondDto;
 
 /**
  * Interface con la definición de los servicio ofrecidos en el sistema para los

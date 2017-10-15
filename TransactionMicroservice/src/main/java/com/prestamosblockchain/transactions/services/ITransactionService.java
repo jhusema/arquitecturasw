@@ -2,7 +2,7 @@ package com.prestamosblockchain.transactions.services;
 
 import java.util.List;
 
-import com.prestamosblockchain.transactions.dto.TransactionDto;
+import com.prestamosblockchain.transaction.TransactionDto;
 
 /**
  * Interface con la definición de los servicios del objeto transacción

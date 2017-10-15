@@ -5,10 +5,11 @@ package com.prestamosblockchain.transactions.services;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.prestamosblockchain.transaction.repository.BondsRepository;
-import com.prestamosblockchain.transactions.dto.BondDto;
+import com.prestamosblockchain.transaction.BondDto;
+import com.prestamosblockchain.transaction.BondsRepository;
 
 /**
  * Implementacion de los servicios de bonos.
@@ -16,10 +17,11 @@ import com.prestamosblockchain.transactions.dto.BondDto;
  * @author JM
  *
  */
+@Service
 public class BondService implements IBondService {
 	private BondsRepository bondsRepository;
 
-	@Bean
+	@Autowired
 	public void setBondsRepository(BondsRepository bondsRepository) {
 		this.bondsRepository = bondsRepository;
 	}
@@ -31,7 +33,7 @@ public class BondService implements IBondService {
 
 	@Override
 	public BondDto getCreatedBondById(int bondId) {
-		return (BondDto) this.bondsRepository.findById(bondId);
+		return (BondDto) this.bondsRepository.findById(bondId).get(0);
 	}
 
 	@Override

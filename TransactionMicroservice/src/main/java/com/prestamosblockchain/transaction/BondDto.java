@@ -1,4 +1,4 @@
-package com.prestamosblockchain.transactions.dto;
+package com.prestamosblockchain.transaction;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.prestamosblockchain.transactions.dto.BondsStatus;
 
 /**
  * Clase que representa al información almacenada en los bonos.
@@ -21,7 +23,7 @@ public class BondDto {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	/**
 	 * Prestatario
 	 */
@@ -52,7 +54,7 @@ public class BondDto {
 	 * 
 	 * @return
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -61,7 +63,7 @@ public class BondDto {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -111,7 +113,7 @@ public class BondDto {
 	}
 
 	/**
-	 * Asigna el monto dle bono
+	 * Asigna el monto del bono
 	 * 
 	 * @param amount
 	 */

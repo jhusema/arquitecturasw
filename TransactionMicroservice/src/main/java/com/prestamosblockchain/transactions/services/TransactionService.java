@@ -2,10 +2,12 @@ package com.prestamosblockchain.transactions.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
-import com.prestamosblockchain.transaction.repository.TransactionRepositoy;
-import com.prestamosblockchain.transactions.dto.TransactionDto;
+import com.prestamosblockchain.transaction.TransactionDto;
+import com.prestamosblockchain.transaction.TransactionRepository;
 
 /**
  * Implementación del servicio de transacciones.
@@ -13,12 +15,14 @@ import com.prestamosblockchain.transactions.dto.TransactionDto;
  * @author JM
  *
  */
+@Service
 public class TransactionService implements ITransactionService {
 
-	private TransactionRepositoy transactionRepositoy;
+	
+	private TransactionRepository transactionRepositoy;
 
-	@Bean
-	public void setTransactionRepositoy(TransactionRepositoy transactionRepositoy) {
+	@Autowired
+	public void setTransactionRepositoy(TransactionRepository transactionRepositoy) {
 		this.transactionRepositoy = transactionRepositoy;
 	}
 
@@ -29,7 +33,7 @@ public class TransactionService implements ITransactionService {
 
 	@Override
 	public TransactionDto getCreatedTransactionById(int id) {
-		return (TransactionDto) this.transactionRepositoy.findById(id);
+		return (TransactionDto) this.transactionRepositoy.findById(id).get(0);
 	}
 
 	@Override

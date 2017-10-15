@@ -1,10 +1,14 @@
-package com.prestamosblockchain.transactions.dto;
+package com.prestamosblockchain.transaction;
 
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.prestamosblockchain.transactions.dto.TransactionTypes;
 
 /**
  * Representa la información de una transacción
@@ -18,6 +22,8 @@ public class TransactionDto {
 	/**
 	 * Identificador de la transacción.
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	/**
 	 * Identifiación del bono objeto de la transacción.

@@ -1,12 +1,10 @@
-package com.prestamosblockchain.transaction.repository;
+package com.prestamosblockchain.transaction;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.prestamosblockchain.transactions.dto.BondDto;
-
-public interface BondsRepository extends CrudRepository<BondDto, Integer> {
+public interface BondsRepository extends CrudRepository<BondDto,Integer>{
 	public List<BondDto> findById(int id);
 
 	public List<BondDto> findByMoneyLenderId(String moneyLenderId);

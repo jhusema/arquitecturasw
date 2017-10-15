@@ -1,11 +1,10 @@
-package com.prestamosblockchain.transaction.repository;
+package com.prestamosblockchain.transaction;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import com.prestamosblockchain.transactions.dto.TransactionDto;
 
-public interface TransactionRepositoy extends CrudRepository<TransactionDto, Integer> {
+public interface TransactionRepository extends CrudRepository<TransactionDto, Integer> {
 	public List<TransactionDto> findById(int id);
 
 	public List<TransactionDto> findByUserId(String userId);
