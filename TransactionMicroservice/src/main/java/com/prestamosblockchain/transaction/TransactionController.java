@@ -3,17 +3,16 @@ package com.prestamosblockchain.transaction;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.prestamosblockchain.transaction.services.BondService;
 import com.prestamosblockchain.transaction.services.IBondService;
 import com.prestamosblockchain.transaction.services.ITransactionService;
-import com.prestamosblockchain.transaction.services.TransactionService;
 
+@CrossOrigin(origins="*")
 @RestController
 public class TransactionController implements IBondService, ITransactionService {
 	/**
@@ -44,6 +43,8 @@ public class TransactionController implements IBondService, ITransactionService 
 //		this.transactionService = new TransactionService();
 //	}
 
+	
+	
 	@RequestMapping(method = RequestMethod.POST, path = "/transactions")
 	@Override
 	public TransactionDto createTransaction(@RequestBody TransactionDto transaction) {
