@@ -124,7 +124,7 @@ public class TransactionController implements IBondService, ITransactionService 
 				sReturn = "Valid Token :) " + new Date();
 			}
 		} catch (Exception e) {
-			sReturn = "Error en le llamado: "+e.getMessage();
+			sReturn = "Error en el llamado: "+e.getMessage();
 		}
 		
 		return sReturn;
