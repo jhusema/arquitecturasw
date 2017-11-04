@@ -1,18 +1,26 @@
 package com.prestamosblockchain.transaction;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.prestamosblockchain.transaction.services.IBondService;
 import com.prestamosblockchain.transaction.services.ITransactionService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 public class TransactionController implements IBondService, ITransactionService {
 	/**
@@ -24,7 +32,6 @@ public class TransactionController implements IBondService, ITransactionService 
 	 */
 	private ITransactionService transactionService;
 
-	
 	@Autowired
 	public void setBondService(IBondService bondService) {
 		this.bondService = bondService;
@@ -38,13 +45,11 @@ public class TransactionController implements IBondService, ITransactionService 
 	/**
 	 * Incializa los objetos sobre los cuales se delegar� los procesos
 	 */
-//	public TransactionController() {
-//		this.bondService = new BondService();
-//		this.transactionService = new TransactionService();
-//	}
+	// public TransactionController() {
+	// this.bondService = new BondService();
+	// this.transactionService = new TransactionService();
+	// }
 
-	
-	
 	@RequestMapping(method = RequestMethod.POST, path = "/transactions")
 	@Override
 	public TransactionDto createTransaction(@RequestBody TransactionDto transaction) {
@@ -103,5 +108,25 @@ public class TransactionController implements IBondService, ITransactionService 
 	@Override
 	public BondDto borrowBond(@RequestBody BondDto bondDto) {
 		return this.bondService.borrowBond(bondDto);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/idtoken")
+	public String returnJWT(@RequestHeader(name="id_token") String idToken, @RequestHeader(name="clientID") String clientID) {
+		GoogleIdTokenVerifier verifier;
+		String sReturn = null;
+		try {
+			verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(),
+					new JacksonFactory()).setAudience(Collections.singletonList(clientID)).build();
+			GoogleIdToken googleIdToken = verifier.verify(idToken);
+			if (googleIdToken == null) {
+				sReturn = "Invalid Token :(" + new Date();
+			} else {
+				sReturn = "Valid Token :) " + new Date();
+			}
+		} catch (Exception e) {
+			sReturn = "Error en le llamado: "+e.getMessage();
+		}
+		
+		return sReturn;
 	}
 }
