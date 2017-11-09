@@ -1,59 +1,48 @@
 /**
- * 
+ *
  */
 package com.prestamosblockchain.transaction.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.prestamosblockchain.transaction.BondDto;
-import com.prestamosblockchain.transaction.BondsRepository;
+import com.prestamosblockchain.transaction.dao.IBondDao;
+import com.prestamosblockchain.transaction.dto.BondDto;
+import com.prestamosblockchain.transaction.dto.ResponseDto;
 
-/**
- * Implementacion de los servicios de bonos.
- * 
- * @author JM
- *
- */
 @Service
 public class BondService implements IBondService {
-	private BondsRepository bondsRepository;
-
 	@Autowired
-	public void setBondsRepository(BondsRepository bondsRepository) {
-		this.bondsRepository = bondsRepository;
+	private IBondDao bondDao;
+
+	@Override
+	public ResponseDto createBond(BondDto bondDto) {
+		return this.bondDao.createBond(bondDto);
 	}
 
 	@Override
-	public BondDto createBondDto(BondDto bondDto) {
-		return this.bondsRepository.save(bondDto);
+	public BondDto getCreatedBondById(String bondId) {
+		return this.bondDao.getCreatedBondById(bondId);
 	}
 
 	@Override
-	public BondDto getCreatedBondById(int bondId) {
-		return (BondDto) this.bondsRepository.findById(bondId).get(0);
+	public List<BondDto> getCreatedBonds(String borrowerId) {
+		return this.bondDao.getCreatedBonds(borrowerId);
 	}
 
 	@Override
-	public List<BondDto> getCreatedBonds() {
-		return this.bondsRepository.findAll();
+	public ResponseDto borrowBond(BondDto bondDto) {
+		return this.bondDao.borrowBond(bondDto);
 	}
 
 	@Override
 	public List<BondDto> getBondsByLoanerId(String loanerId) {
-		return this.bondsRepository.findByMoneyLenderId(loanerId);
+		return this.bondDao.getBondsByLoanerId(loanerId);
 	}
 
 	@Override
 	public List<BondDto> getBondsByborrowerId(String borrowerId) {
-		return this.bondsRepository.findByBorrowerId(borrowerId);
+		return this.bondDao.getBondsByborrowerId(borrowerId);
 	}
-
-	@Override
-	public BondDto borrowBond(BondDto bondDto) {
-		return this.bondsRepository.save(bondDto);
-	}
-
 }

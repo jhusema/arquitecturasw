@@ -1,132 +1,85 @@
 package com.prestamosblockchain.transaction;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.prestamosblockchain.transaction.dto.BondDto;
+import com.prestamosblockchain.transaction.dto.ResponseDto;
 import com.prestamosblockchain.transaction.services.IBondService;
-import com.prestamosblockchain.transaction.services.ITransactionService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins="*")
 @RestController
-public class TransactionController implements IBondService, ITransactionService {
-	/**
-	 * Implementaci�n del servicio de bonos.
-	 */
+public class TransactionController implements IBondService {
+	@Autowired
 	private IBondService bondService;
-	/**
-	 * Implementacion del servicio de transacciones.
-	 */
-	private ITransactionService transactionService;
 
-	@Autowired
-	public void setBondService(IBondService bondService) {
-		this.bondService = bondService;
-	}
+	/*@Autowired
+	private ITransactionService transactionService;*/
 
-	@Autowired
-	public void setTransactionService(ITransactionService transactionService) {
-		this.transactionService = transactionService;
-	}
-
-	/**
-	 * Incializa los objetos sobre los cuales se delegar� los procesos
-	 */
-	// public TransactionController() {
-	// this.bondService = new BondService();
-	// this.transactionService = new TransactionService();
-	// }
-
-	@RequestMapping(method = RequestMethod.POST, path = "/transactions")
+	@RequestMapping(method=RequestMethod.POST,path="/bonds")
 	@Override
-	public TransactionDto createTransaction(@RequestBody TransactionDto transaction) {
-		return this.transactionService.createTransaction(transaction);
+	public ResponseDto createBond(@RequestBody BondDto bondDto) {
+		return this.bondService.createBond(bondDto);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/transactions/{transactionId}")
+	@RequestMapping(method=RequestMethod.GET,path="/bonds/{bondId}")
 	@Override
-	public TransactionDto getCreatedTransactionById(@PathVariable int transactionId) {
-		return this.transactionService.getCreatedTransactionById(transactionId);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, path = "/transactions")
-	@Override
-	public List<TransactionDto> getCreatedTransactions() {
-		return this.transactionService.getCreatedTransactions();
-	}
-
-	@RequestMapping(method = RequestMethod.GET, path = "/transactions/user/{userId}")
-	@Override
-	public List<TransactionDto> getTransactionByUserId(@PathVariable String userId) {
-		return this.transactionService.getTransactionByUserId(userId);
-	}
-
-	@RequestMapping(method = RequestMethod.POST, path = "/bonds")
-	@Override
-	public BondDto createBondDto(@RequestBody BondDto bondDto) {
-		return this.bondService.createBondDto(bondDto);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, path = "/bonds/{bondId}")
-	@Override
-	public BondDto getCreatedBondById(@PathVariable int bondId) {
+	public BondDto getCreatedBondById(@PathVariable String bondId) {
 		return this.bondService.getCreatedBondById(bondId);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/bonds")
+	@RequestMapping(method=RequestMethod.GET,path="/bonds/available/{borrowerId:.+}")
 	@Override
-	public List<BondDto> getCreatedBonds() {
-		return this.bondService.getCreatedBonds();
+	public List<BondDto> getCreatedBonds(@PathVariable String borrowerId) {
+		return this.bondService.getCreatedBonds(borrowerId);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/bonds/loaner/{loanerId}")
+	@RequestMapping(method=RequestMethod.PUT,path="/bonds")
+	@Override
+	public ResponseDto borrowBond(@RequestBody BondDto bondDto) {
+		return this.bondService.borrowBond(bondDto);
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/bonds/loaner/{loanerId:.+}")
 	@Override
 	public List<BondDto> getBondsByLoanerId(@PathVariable String loanerId) {
 		return this.bondService.getBondsByLoanerId(loanerId);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/bonds/borrower/{borrowerId}")
+	@RequestMapping(method=RequestMethod.GET,path="/bonds/borrower/{borrowerId:.+}")
 	@Override
 	public List<BondDto> getBondsByborrowerId(@PathVariable String borrowerId) {
 		return this.bondService.getBondsByborrowerId(borrowerId);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, path = "/bonds")
+	/*@RequestMapping(method=RequestMethod.POST,path="/transactions")
 	@Override
-	public BondDto borrowBond(@RequestBody BondDto bondDto) {
-		return this.bondService.borrowBond(bondDto);
+	public TransactionDto createTransaction(@RequestBody TransactionDto transaction) {
+		return this.transactionService.createTransaction(transaction);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/idtoken")
-	public String returnJWT(@RequestHeader(name="id_token") String idToken, @RequestHeader(name="clientID") String clientID) {
-		GoogleIdTokenVerifier verifier;
-		String sReturn = null;
-		try {
-			verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(),
-					new JacksonFactory()).setAudience(Collections.singletonList(clientID)).build();
-			GoogleIdToken googleIdToken = verifier.verify(idToken);
-			if (googleIdToken == null) {
-				sReturn = "Invalid Token :(" + new Date();
-			} else {
-				sReturn = "Valid Token :) " + new Date();
-			}
-		} catch (Exception e) {
-			sReturn = "Error en el llamado: "+e.getMessage();
-		}
-		
-		return sReturn;
+	@RequestMapping(method=RequestMethod.GET,path="/transactions/{transactionId}")
+	@Override
+	public TransactionDto getCreatedTransactionById(@PathVariable int transactionId) {
+		return this.transactionService.getCreatedTransactionById(transactionId);
 	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/transactions")
+	@Override
+	public List<TransactionDto> getCreatedTransactions() {
+		return this.transactionService.getCreatedTransactions();
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/transactions/user/{userId}")
+	@Override
+	public List<TransactionDto> getTransactionByUserId(@PathVariable String userId) {
+		return this.transactionService.getTransactionByUserId(userId);
+	}*/
 }

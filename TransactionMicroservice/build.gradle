@@ -34,13 +34,12 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.security:spring-security-jwt")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.boot:spring-boot-starter-web")
     compile("io.jsonwebtoken:jjwt:0.9.0")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.security:spring-security-jwt")
+	compile("com.google.apis:google-api-services-oauth2:v1-rev136-1.23.0")
     compile("com.h2database:h2")
-    compile("com.google.apis:google-api-services-siteVerification:v1-rev51-1.23.0")
-    compile("com.google.http-client:google-http-client-jackson2")  
-    compile("com.google.oauth-client:google-oauth-client-jetty")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -3,47 +3,33 @@ package com.prestamosblockchain.transaction.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import com.prestamosblockchain.transaction.dao.ITransactionDao;
+import com.prestamosblockchain.transaction.dto.TransactionDto;
 
-import com.prestamosblockchain.transaction.TransactionDto;
-import com.prestamosblockchain.transaction.TransactionRepository;
-
-/**
- * Implementación del servicio de transacciones.
- * 
- * @author JM
- *
- */
 @Service
 public class TransactionService implements ITransactionService {
-
-	
-	private TransactionRepository transactionRepositoy;
-
 	@Autowired
-	public void setTransactionRepositoy(TransactionRepository transactionRepositoy) {
-		this.transactionRepositoy = transactionRepositoy;
-	}
+	private ITransactionDao transactionDao;
 
 	@Override
-	public TransactionDto createTransaction(TransactionDto transaction) {
-		return this.transactionRepositoy.save(transaction);
+	public TransactionDto createTransaction(TransactionDto transactionDto) {
+		return this.transactionDao.createTransaction(transactionDto);
 	}
 
 	@Override
 	public TransactionDto getCreatedTransactionById(int id) {
-		return (TransactionDto) this.transactionRepositoy.findById(id).get(0);
+		return this.transactionDao.getCreatedTransactionById(id);
 	}
 
 	@Override
 	public List<TransactionDto> getCreatedTransactions() {
-		return this.transactionRepositoy.findAll();
+		return this.transactionDao.getCreatedTransactions();
 	}
 
 	@Override
 	public List<TransactionDto> getTransactionByUserId(String userId) {
-		return this.transactionRepositoy.findByUserId(userId);
+		return null;
 	}
 
 }
